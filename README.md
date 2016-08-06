@@ -1,6 +1,6 @@
 # riskcontrol
 ## 介绍
-* Java实时处理业务风控系统
+* 轻量级，可扩展，高性能的Java实时业务风控系统
 * 基于Spring boot构建
 * 使用drools规则引擎管理风控规则 
 * 使用redis、mongodb做风控计算和储存
@@ -14,6 +14,7 @@
 ## 配置
 * 项目配置：application.properties
 * 日志配置：logback.xml
+* 规则配置：rules/*.drl
 
 ## 运行
 系统默认采用jar打包和运行，建议系统搭建在多台节点上，使用反向代理做负载均衡。
