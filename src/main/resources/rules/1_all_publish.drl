@@ -1,0 +1,19 @@
+package rc;
+
+import com.example.riskcontrol.model.Event
+import com.example.riskcontrol.service.DimensionService
+
+global DimensionService dimensionService
+
+rule "1_all_publish"
+    salience 1
+    lock-on-active true
+    when
+        event:Event()
+    then
+        if(event.getScore()>=100){
+            dimensionService.insertRiskEvent(event,"预警");
+        }
+
+end
+

@@ -1,0 +1,26 @@
+package rc;
+
+import com.example.riskcontrol.model.LoginEvent
+import com.example.riskcontrol.service.DimensionService
+import com.example.riskcontrol.model.EnumTimePeriod
+
+global DimensionService dimensionService
+
+rule "98_login_ip"
+    salience 98
+    lock-on-active true
+    when
+        event:LoginEvent()
+    then
+        int count  = dimensionService.distinctCount(event,new String[]{LoginEvent.OPERATEIP},EnumTimePeriod.LASTHOUR,LoginEvent.MOBILE);
+        if(event.addScore(count,20,10,1)){
+            dimensionService.insertRiskEvent(event,"近1小时内同ip出现多个mobile,count="+count);
+        }
+
+
+        count = dimensionService.count(event,new String[]{LoginEvent.OPERATEIP},EnumTimePeriod.LASTMIN);
+        if(event.addScore(count,20,10,1)){
+             dimensionService.insertRiskEvent(event,"近1分钟同ip登陆频次,count="+count);
+        }
+
+end

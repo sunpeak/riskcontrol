@@ -1,0 +1,17 @@
+package rc;
+
+import com.example.riskcontrol.model.Event
+import com.example.riskcontrol.service.DimensionService
+
+global DimensionService dimensionService
+
+rule "0_all_addevent"
+    salience 0
+    lock-on-active true
+    when
+        event:Event()
+    then
+        dimensionService.insertEvent(event);
+
+end
+
