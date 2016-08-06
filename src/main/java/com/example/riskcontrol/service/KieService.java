@@ -1,13 +1,11 @@
 package com.example.riskcontrol.service;
 
-import org.kie.api.definition.rule.Rule;
 import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.StatelessKieSession;
 import org.kie.internal.KnowledgeBase;
 import org.kie.internal.KnowledgeBaseFactory;
 import org.kie.internal.builder.KnowledgeBuilder;
 import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.definition.KnowledgePackage;
 import org.kie.internal.io.ResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Collection;
 
 /**
  * Created by sunpeak on 2016/8/6.
@@ -151,13 +148,9 @@ public class KieService {
      */
     public void printRules() {
         logger.info("print rule: -----------------------");
-        Collection<KnowledgePackage> knowledgePackages = kbase.getKnowledgePackages();
-        for (KnowledgePackage kp : knowledgePackages) {
-            Collection<Rule> rules = kp.getRules();
-            for (Rule rule : rules) {
-                logger.info("print rule: " + kp.getName() + "." + rule.getName());
-            }
-        }
+        kbase.getKnowledgePackages().forEach(knowledgePackage ->
+                knowledgePackage.getRules().forEach(rule ->
+                        logger.info("print rule: " + knowledgePackage.getName() + "." + rule.getName())));
         logger.info("print rule: -----------------------");
     }
 
