@@ -1,4 +1,4 @@
-package rc;
+package rules;
 
 import com.example.riskcontrol.model.LoginEvent
 import com.example.riskcontrol.service.DimensionService
